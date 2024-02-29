@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any
     stages{
         stage ('Compile Stage'){
@@ -13,7 +13,7 @@ pipeline{
             steps{
                 withMaven(maven: 'maven_3.9.6' ){
                     sh 'mvn test'
-                }
+                
             }
         }
         stage ('Deployment Stage'){
@@ -24,4 +24,5 @@ pipeline{
             }
         }
     }
+}
 }
