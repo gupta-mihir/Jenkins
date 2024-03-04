@@ -1,28 +1,24 @@
 pipeline {
     agent any
-    stages{
-        stage ('Compile Stage'){
-            steps{
-                withMaven(maven: 'maven_3.9.6' ){
-                    sh 'mvn clean compile'
-                }
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'make'
             }
-           
         }
-        stage ('Testing Stage'){
-            steps{
-                withMaven(maven: 'maven_3.9.6' ){
-                    sh 'mvn test'
+        stage('Test'){
+            steps {
+                sh 'make check'
                 
             }
         }
-        stage ('Deployment Stage'){
-            steps{
-                withMaven(maven: 'maven_3.9.6' ){
-                    sh 'mvn deploy '
-                }
+        stage('Deploy') {
+            steps {
+                sh 'make publish'
             }
         }
     }
-}
 }
